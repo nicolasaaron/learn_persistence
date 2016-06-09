@@ -1,0 +1,353 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%	Code Snippet										%%
+%%	This template is used for a report with codes.	%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[a4paper,12pt]{article}
+
+
+%%%%%%%%%%%%%%%%%%%%%% Start of packages %%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[english]{babel}
+%\usepackage[latin1]{inputenc}
+\usepackage{listings} % Required for inserting code snippets
+\usepackage[usenames,dvipsnames]{color} % Required for specifying custom colors and referring to colors by name
+
+%	Define Paper's structure
+\usepackage[top=2cm,bottom=3.5cm]{geometry}
+
+%	Enable to insert/edit an image into the report
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{color}
+
+%	Common Tools
+%\usepackage[]{hyperref}		% Enable to use hyperlink in PDF
+\usepackage{enumerate}		% Enable to enumerate items
+\usepackage{indentfirst}		% force to indent the first line of all paragraphs
+\usepackage{textcomp}		% Insert special characters
+\usepackage{cite}			% Use special characters
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tabularx}
+\usepackage[retainorgcmds]{IEEEtrantools}
+%\usepackage{comment}
+%\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{multicol}
+\usepackage{xcolor}
+\usepackage{caption}
+\usepackage{subcaption}
+%\usepackage{algpseudocode}
+%\usepackage{varwidth}
+\usepackage{eurosym}
+%\usepackage{braket}
+\usepackage{afterpage}
+%\usepackage{tocloft}
+\usepackage{graphicx}
+%\usepackage{wrapfig}
+
+%%%%%%%%%%%%%%%%%%%%%%% End of packages %%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Define different highlight color used in code
+\definecolor{DarkGreen}{rgb}{0.0,0.4,0.0}
+\definecolor{highlight}{RGB}{255,251,204}
+
+\numberwithin{equation}{section}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+
+% Define the style of code
+\lstdefinestyle{Style1}{
+	language=matlab, % Detects keywords, comments, strings, functions, etc for the language specified
+	backgroundcolor=\color{highlight}, % Set the background color for the snippet - useful for highlighting
+	basicstyle=\footnotesize\ttfamily, % The default font size and style of the code
+	breakatwhitespace=false, % If true, only allows line breaks at white space
+	breaklines=true, % Automatic line breaking (prevents code from protruding outside the box)
+	captionpos=b, % Sets the caption position: b for bottom; t for top
+	commentstyle=\usefont{T1}{pcr}{m}{sl}\color{DarkGreen}, % Style of comments within the code - dark green courier font
+	deletekeywords={}, % If you want to delete any keywords from the current language separate them by commas
+	%escapeinside={\%}, % This allows you to escape to LaTeX using the character in the bracket
+	firstnumber=1, % Line numbers begin at line 1
+	frame=single, % Frame around the code box, value can be: none, leftline, topline, bottomline, lines, single, shadowbox
+	frameround=tttt, % Rounds the corners of the frame for the top left, top right, bottom left and bottom right positions
+	keywordstyle=\color{Blue}\bf, % Functions are bold and blue
+	morekeywords={}, % Add any functions no included by default here separated by commas
+	numbers=left, % Location of line numbers, can take the values of: none, left, right
+	numbersep=10pt, % Distance of line numbers from the code box
+	numberstyle=\tiny\color{Gray}, % Style used for line numbers
+	rulecolor=\color{black}, % Frame border color
+	showstringspaces=false, % Don't put marks in string spaces
+	showtabs=false, % Display tabs in the code as lines
+	stepnumber=5, % The step distance between line numbers, i.e. how often will lines be numbered
+	stringstyle=\color{Purple}, % Strings are purple
+	tabsize=2, % Number of spaces per tab in the code
+}
+
+% Create a command to insert a snippet with the style above anywhere in the document
+\newcommand{\insertcode}[2]{\begin{itemize}\item[]\lstinputlisting[caption=#2,label=#1,style=Style1]{#1}\end{itemize}} % The first argument is the script location/filename and the second is a caption for the listing
+
+
+\title{}
+%\author{Zongjun Tan}
+
+
+
+
+\begin{document}
+%\maketitle
+\begin{center}
+  \textbf{\Large Algorithm for extended persistence diagram}\\
+  \today
+\end{center}
+
+%-------------------------------------------------------%
+\noindent
+
+	\begin{figure}[!hbtp]
+		\centering				
+		\includegraphics[width=0.6\textwidth]{figure/figure_1.jpg}
+		\caption{Graph $G$}
+		\label{fig:graph_G}		
+	\end{figure}
+	
+	\noindent
+	\textbf{Introduction}\\
+	
+	We study a non-directed graph $G=(V,E)$ with a vertex set $V$ and an edge set $E$. We employ the numbers $\{0,1,\ldots\}$ to label the vertices in $V$ and if two vertices $i$ and $j$ are joined by an edge in $E$, it will be denoted by $\sigma_{ij}$ with $i<j$. A simple non-directed graph means that there are no self-loops in $G$ and every pair of points has at most one edge connecting them.  A path from $u$ to $v$ in a non-directed graph is an alternative sequence of vertices and edges. It starts  with the vertex $u$, then follows by an edge $\sigma_{ur}$. In the middle of the sequence, any two consequtive edges are sparated by their adjacent vertex, finally, the path ends with the vertex $v$. A simple path means every edge appears at most once. In this note, a path means a simple path. 
+	
+	Suppose that there is a height value function $f: V \mapsto \mathbb{R}$ such that $f(0) < f(1) < \ldots <f(n)$, where $\vert V \vert = n+1$. 
+	
+	Let the number of edges be $\vert E \vert =m$. Besides ordering the vertices by a height value function, we queue the edges according to the rules that $\sigma_{ij}$ lines before $\sigma_{rs}$ if $\color{red} ``j<s" \  or \  ``j=s \ and \ i<r"$.	
+	
+	Figure \ref{fig:graph_G} gives an example of a graph $G$ with $\vert V \vert =7$ vertices $\{0,1,2,3,4,5,6\}$ and $\vert E \vert =9$ edges $\{\sigma_{01}, \sigma_{02}, \sigma_{23}, \sigma_{24}, \sigma_{15}, \sigma_{35}, \sigma_{45}, \sigma_{16}, \sigma_{46} \}$. The height value function $f$ is set to be the upwards height of a vertex. The compatible order of edges is
+	$$ \sigma_{01} \to \sigma_{02} \to \sigma_{23} \to \sigma_{24} \to \sigma_{15} \to \sigma_{35} \to \sigma_{45} \to \sigma_{16} \to \sigma_{46}$$\\
+	
+	% % % % % % % % % % % % % % % % % % % % % % % %	% % % % % %
+	\noindent
+	\textbf{Union-Find algorithm for ordinary part of persistence diagram}
+	
+	The objective is to compute the extended persistence diagram (pdg) of the filtration $f$ with $G$, in dimension 0 and in dimension 1.
+		
+	We know in advance that points in pdg can be categorized into three parts: Ordinary, Extended, Relative. Furthermore, the Ordinary and Relative parts of pdg can be computed in linear time complexity with the help of path-compressed union-find algorithms. More precisely, both of them can be computed in $\mathcal{O}(m \alpha(n) )$, where $\alpha(n)$ is the Ackermann function.
+	
+	Take the Ordinary part as an example to see the use of the union-find algorithm. Before moving to the effect caused by vertices and edges, we denote a subgraph $G_k = \{V_k, E_k\}$ of $G$ consisted of vertices $V_k = \{0,\ldots,k\}$ and all edges in $E$ connected these points, namely $E_k = \{\sigma_{ij} \in E \vert i<j \leq k\}$. The ordinary part of the filtration of $f$ with $G$ is given by
+	$$ \varnothing \subset G_0 \subset G_1 \subset \ldots \subset G_n = G $$
+	
+	First of all, every vertex in $V$ gives birth to an homology group in dimension 0.
+	
+	As for an edge $\sigma_{jk} \in E$, it either sentences an homology group in dimension 0 to death in the case that it joints two different connected components $C(j)$ and $C(k)$ in the graph $G_{k-1}^{+j}$ formed by the union of subgraph $G_{k-1}$, the vertex $\{k\}$, and all edges $\sigma_{ik} \in E_k$ with $i < j$, $G_{k-1}^{+j}= G_{k-1} \cup \{k\}\cup \{ \sigma_{ik} \in E_k \vert i<j \}$ ; or gives birth to an homology group in dimension 1 by creating a cycle in the connected component in $G_{k-1}^{+j}$ that both vertices $j$ and $k$ belong to.
+	
+	In the first situation, we find the smallest vertex in each component $C(i)$ and $C(j)$, and call them the oldest ancestor vertex $anc_{c(i)}$ and $anc_{c(j)}$ respectively. Remind that the corresponding homology group in dimension 0 of a connected component is created by its oldest ancestor vertex. If $f( anc_{c(i)} ) < f ( anc_{c(j)} )$, then according the elder rule, the homology group of $anc_{C(j)}$ dies and we have a vertex-edge pair $(anc_{C(j)}, \sigma_{jk})$. This pair represents a point $(f(anc_{C(j)}), f(k))$ in the pdg of dimension 0.
+	
+	In the second situation, we create a cycle of dimension 1 at point $k$ with edge $\sigma_{jk}$. This homology will live till the end of the filtration $f$, and will eventually die in the relative part of the extended filtration of $f$ with relative homology groups $H(G, G^i)$ where $G^{i} = \{i,\ldots,n\} \cup \{ \sigma_{rs} \in E \vert s >r \geq i \}$. It corresponds to the abscissa of an extended point in dimension 1. The hard part is to find the matched y-axis coordinate in $\{0,\ldots,k-1\}$.
+	
+	Therefore, the union-find algorithm serves to keep track on the merge of different connected components along the adhesion of edges which yields information of pdg in dimension 0.\\
+	
+	We will focus in the following on how to search efficiently the death moment of a cycle in relative homology groups.\\
+	
+	% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+	\newpage
+	\noindent
+	\textbf{A useful example}
+	
+	\begin{figure}[!hbtp]
+	  \centering				
+	  \includegraphics[width=\textwidth]{figure/figure_2.jpg}
+	  \caption{subgraph $G_k = G_5$}
+	  \label{fig:graph_G_5}		
+	\end{figure}
+	
+	Figure \ref{fig:graph_G_5}(a) shows the subgraph $G_k = G_5$ of graph $G$. We observe that there are three cycles in the subgraph, namely the cycle $[5-3-2-4-5]$, the cycle $[5-1-0-2-3-5]$ and the cycle $[5-1-0-2-4-5]$. two of the three cycles are independent and they correspond to two different points, $(f(5),f(2))$ and $(f(5),f(0))$ in the dimension 1 pdg. Both cycles are born in the ordinary part of the filtration of $f$ and they die in the relative part of the filtration of $f$. 
+	
+	We denote the lower neighbors of a vertex $j$ in $G_k$ by $\mathcal{N}^{j-}_k = \{i \vert \sigma_{ij} \in E_k ,i< j \leq k \}$, and a upper neighbor of $i$ in $G_k$ by $\mathcal{N}^{i+}_k = \{j \vert \sigma_{ij} \in E_k, i <j <k \}$. We also denote the subgraph beyond a certain level $i$ of the subgraph $G_k$ by $G_k^{i}$ with $i = 0,...k$, more precisely let $G_k^i = \{i,i+1,\dots,k\} \cup \{\sigma_{rs} \in E \vert i \leq r < s \leq k \}$ when $i \leq k$, otherwise $G_{k}^i = \varnothing$.\\
+	
+	The first remark is that all the cycles in $G_5$ are born at point $f(k) = f(5)$, the height value of the largest vertex in the subgraph. Since all the cycles in $G_5$ must have the vertex $5$, the other endpoints of edges $\sigma_{j5}$ in a cycle will certainly belong to $\mathcal{N}^{5-}_5 = \{1,3,4\}$. We also observe that these tree edges $(\sigma_{15}, \sigma_{35}, \sigma_{45})$ are equivalent in the sense of forming a cycle with $G_4$, and two of the three will be named as positive edges by giving birth to two dimension 1 homology classes in $G$.\\
+
+	The second remark is that a point in the pdg may be associated to different cycles, even without counting the multiplicity of this point in the diagram. For instance, $(f(5),f(0))$ has multiplicity 1 but could be matched to the cycle $[5-1-0-2-3-5]$ or to the cycle $[5-1-0-2-4-5]$. This ambiguity reveals the insight fact that an exact representation of cycles by point pairs or by edge pairs will become meaningless or even intractable due to the non-deterministic way to choose a base of cycles to generate all cycles in the graph. This is similar to the non deterministic way to choose a base of vectors in a real vector space.\\
+	
+	The third remark is that $G_4$ contains no cycles, in another word, it is a tree, so that every pair of points $(i,j)$ in $G_4$ has a unique non-directed path form $i$ to $j$, vice-versa.
+	This point is important, though it can be implied from the first remark, because every cycle can be broken into two paths, a path $[i-5-j]$ with $i,j \in \mathcal{N}^{5-}_5$ and a unique path $P_{ij}$ from $i$ to $j$ in $G_4$. Henceforth, the smallest vertex in $P_{ij}$, denote it by $w$, splits the path $P_{ij}$ into two sub-paths whose vertices are larger than $w$ and smaller than $k$. These two connected components belongs to $G_{k-1}^{w+1}$. Inversely, if a point $r$ with two of its edges in $\{ \sigma_{rs} \vert s \in \mathcal{N}^{r+}_k \}$ (upward edges of $r$) that join two different connected components in $G_{k-1}^{r+1}$ which contains respectively the vertex $i$ and $j$, then $r$ must on the path $P_{ij}$ because there is only one path from $i$ to $j$. Furthermore, because $r$ is smaller than vertices in components of $G_{k-1}^{r+1}$, it is thus smaller than any of the vertices on the path $P_{ij}$, so we have $r = w$.
+	
+	This property provides us a method to determine the lowest vertex in a cycle by using the union-find algorithm to keep track on the merge of connected components in $V_4$ by adding one by one the edges in the order
+	$ \sigma_{24} \to \sigma_{23} \to \sigma_{02} \to \sigma_{01}. $	
+	It also provides a way to use an vertex-edge pair to characterize a cycle after we actually find that cycle. We choose a positive edge $\sigma_{i5}$ between the two edges $(\sigma_{i5}, \sigma_{j5})$ that join at $5$ such that $i < j$, the vertex-edge pair for the cycle becomes $(w, \sigma_{i5})$. \\	
+	
+	The forth remark is that ``an essential dimension $1$ homology class (i.e. a cycle) of $G^{i}_k$ gets born at the same time that a dimension $1$ relative homology class of $(G_k, G_k^i)$ dies''.
+	This indicates that every death moment of a cycle in $(G_5, G_5^i)$ has a one-to-one match to the birth time of a cycle in $G^i_5$ (we use $-f$ as the filtration function to count the birth time of cycles in $G_5^i$). 
+	
+	By excision theorem, the relative homology groups in $\mathbf{H}_1(G_5,G_5^i)$ are isomorphism to the relative homology groups in $\mathbf{H}_1(G, G^i)$. Therefore, the birth time $f(w)$ of a cycle in $G^{i}_5$ can be associated to the death moment of a cycle in $\mathbf{H}_1(G, G^i)$ (indeed, these two cycles are identical except for the direction we consider the cycle.) and gives raise to a point $(f(5), f(w))$ in pdg. \\
+	
+	
+	
+	An important thing needed to be keep in mind with the union-find algorithm in the third remark is that it avoids the representation problem of a cycle before actually finding that cycle. The things that really count in a union-find algorithm is the related position of connected components that contains lower neighbor vertices $\mathcal{N}_5^{5-}$. Therefore, the order of merging elements in $\mathcal{N}_5^{5-}$ into connected components will finally determine the death sequence as well as the positive edges of dimension 1 homology classes in $G_5$.
+	
+	In our example,see Figure \ref{fig:graph_G_5}(b), $\mathcal{N}^{5-}_5 = \{1,3,4\}$. Following the union-find algorithm, we descend from $4$ to $0$. At first, vertices $\{4,3\}$ creates respectively a connected component. When we reach at vertex $2$, we merge $\{3,4\}$ together after adding the edge $\sigma_{24}$ and $\sigma_{23}$. This gives death to a cycle which can be represented by $(2, \sigma_{35})$. After that, we keep on descending to $1$ and the $0$. We then merge the connected component $\{1\}$ and $\{3,4,2\}$ together. It kills another cycle which is represented by $(0, \sigma_{15})$. We observe that the fusion order of vertices in $\mathcal{N}^{5-}_5$ is $((4,3),1)$ and the positive edges are $\{\sigma_{35}, \sigma_{15} \}$. However, we don not know this order in advance until we finish running the union-find algorithm. \\
+
+		
+	% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+	\noindent
+	\textbf{Moving one step forward}\\
+		
+	\begin{figure}[!hbtp]
+		\centering				
+		\makebox[\textwidth][c]{\includegraphics[width=1.3\textwidth]{figure/figure_3.jpg}} %
+		\caption{(a) graph $G_5$ and $G_6$; (b) spanning trees in $G_5$ with negative edges for dimension 0 homology classes $T^{-}_5$ and its union with $\{ \sigma_{16}, \sigma_{46} \}$; (c) tree-tyep subgraph $T_5$ of $G_5$ and the subgraph $F_6 = T_5 \cup \{6 \} \cup \{ \sigma_{16}, \sigma_{46} \}$ of $G_6$.}
+		\label{fig:graph_F_6}		
+	\end{figure}
+	
+	After determining the death times of cycles born at $f(5)$, we consider now the graph $G_6 = G$. We can see in the Figure \ref{fig:graph_F_6}(a) that there is one cycle born at $f(6)$ and this cycle dies at time $f(1)$ in the relative part of filtration $f$, $\mathbf{H}_1(G,G^1)$. 
+	
+	Following the same notation in the previous section, we denote the lower neighbors of $6$ by $\mathcal{N}_6^{6-} = \{1,4\}$. If we look at directly the graph $G_6$ in Figure \ref{fig:graph_F_6}(a), we find that $G_5$ is not a tree so that there are in total 3 cycles in $G_6$. These cycles are not all born at $f(6)$. Two of them are born at $f(5)$ and have already been studied in the previous step. Nevertheless, we can still apply a modified union-find algorithm on $G_5$ to determine the death time of the dimension 1 homology class born at $f(6)$. 
+	
+	Similar to the previous union-find algorithm, we queue the edges in $G_5$ such that $\sigma_{ij}$ lines before $\sigma_{rs}$ if $\color{red} ``i>r" \  or \  ``i=r \ and \ j>s"$. In another word
+	$$ \sigma_{45} \to \sigma_{35} \to \sigma_{24} \to \sigma_{23} \to \sigma_{15} \to \sigma_{02} \to \sigma_{01}.$$ We keep track on the merge of two connected components in which contains respectively at least one vertex in $\mathcal{N}_6^{6-}$ and label it with a vertex-edge pair. More precisely, if we merge two connected components $C(i)$ and $C(j)$ with edge $\sigma_{rs}$ such that $i$ (resp $j$) is the largest vertex in $\mathcal{N}_{6}^{6-} \cap C(i)$ (resp $\mathcal{N}_{6}^{6-} \cap C(j)$) and $i<j$, we give this fusion a label $(r, \sigma_{i6})$. Along the union-find algorithm for connected components finding, we do not label any fusion of connected components that at most one of them contains vertices in $\mathcal{N}_{6}^{6-}$, neither do we label the creation of any cycles. 
+	
+	In our example, the moment of adding the edge $\sigma_{23}$ creates a cycle in the connected component $C(4) = \{5,4,3,2\} \cup \{\sigma_{45}, \sigma_{35}, \sigma_{24}\}$. We do not record this redundant modification in an already connected component as if the edge $\sigma_{23}$ doesn't exist. 	After that, the merge of connected component $C(1)$ and $C(4)$ raises a label of vertex-edge pair $(1, \sigma_{16})$. We know that a cycle born at $f(6)$ has been killed since we find a path from $1$ to $4$ through in the new merged connected component from $C(1)$ and $C(4)$. Since we know in advance there is only one cycle born at $f(6)$, and we have already found its death time at $f(1)$, there is no need to study the fusion of connected components caused by the remaining edges $\{ \sigma_{02}, \sigma_{01} \}$.	
+	
+	Since $G_5$ is not a tree, so we do not have a single path from any two vertices $i,j \in \mathcal{N}_6^{6-}$. Therefore, we need to check if the height value of the vertex $f(w) = f(1)$ in the vertex-edge pair $(1,\sigma_{16})$ corresponds to the death time of a cycle born at $f(6)$. This can be verified by the order that we add edges progressively to merge connected components contains vertices of the lower neighbors of $6$ in order to build paths between these vertices.\\
+	
+	Review the case of $G_5$, we observe that $G_4$ is a tree and all the cycles in $G_5$ contain the vertex $5$. In this setting, things turn out to be much more easier to understand because all the cycles we found, all the death times we determined, and all the points in the dimension 1 pdg of this subgraph will be undoubtedly matched to the a single birth time $f(5)$.
+	
+	While we are in the case of $G_6$, we don not has a tree structure with $G_5$. If we try to erase some edges in $G_5$ to form a tree or a forest, we may return to our favorable situation. However, a random remove of any number of edges will lose a unpredictable amount of information and distort too much the graph structure. In consequence, we mismatch the birth and death time of cycles appeared in the origin unmodified graph $G_6$.
+	
+	For example, in Figure \ref{fig:graph_F_6} (b), we try to use a spanning tree formed with negative edges of dimension 0 homology classes in $G_5$ with all the edges of type $\{\sigma_{j6}\}$ (equivalently, removing all positive edges of cycles in $G_5$) to capture the death times of cycles born at $f(6)$. What we find is a large cycle $[6-1-0-2-4]$ whose death time is $f(0)$, as a combination of two cycles $[6-1-5-4]$ and $[5-1-0-2-4]$ in the origin subgraph $G_6$. Indeed, the only dimension 1 homology class, the cycle, born at $f(6)$ in the graph $G_6$ has already been dead when we arrive at the homology groups $\mathbf{H_1}(G_6, G_6^1)$ in the extended filtration of $f$. The erase of edge $\sigma_{15}$ turns out to lose the information that we search for that cycle. On the other hand, in Figure \ref{fig:graph_F_6} (c), we try to use another tree-type subgraph of $G_5$, $T_5$, formed by removing negative edges $\{\sigma_{23}, \sigma_{01} \}$ of cycles in $G_5$, in another words, by removing one edge of type $\sigma_{rs}$ in the connected component that contains edge $\sigma_{i5}$ for each vertex-edge label $(r,\sigma_{i5})$  of cycle in $G_5$. Let $F_6 = T_5 \cup \{6\} \cup \{\sigma_{j6} \}$. We observe that in there is still a cycle $[6-1-5-4]$ in $F_6$ and it dies at time $f(1)$. It seems like a coincidence, but we will prove in the following that the subgraph $F_{k} = T_{k-1} \cup \{k \} \cup \{ \sigma_{jk} \}$ of $G_k$ that captures all the death times of independent cycles born at $f(k)$ in the original graph $G$.\\
+	
+	\noindent \textbf{Properties of $T_k$ and $F_{k+1}$}\\
+	
+	Let $\vert V \vert = n+1$ and we have an compatible order of edges such that $\sigma_{ij}$ lines before $\sigma_{rs}$ if $``j<s" \  or \  ``j=s \ and \ i<r"$.	The lower neighbors of the vertex $k$ is the set of endpoint of edges $\sigma_{jk}$ with $j<k$, denoted by $\mathcal{N}^{-}_{k} = \{j \vert \sigma_{jk} \in E, j<k \}$.
+	
+	For $0\leq k \leq n-1$, $T_k$ is a subgraph of $G_k$ with vertics set $V_k = \{0,\ldots, k\}$.  $F_{k+1}$ is a subgraph of $G_{k+1}$ defined as a union of $T_k$, the vertex ${k+1}$, and all the edges in $G_{k+1}$ with an endpoint $k+1$, namely
+	$$ F_{k+1} = T_k \cup \{k+1\} \cup \{ \sigma_{jk} \in E \vert j<k \} \subset G_{k+1}.$$	
+	
+	We call that $T_k$ is tracktable if it satisfied the following three properites:
+	\begin{itemize}
+	 \item If there is a path from $u$ to $v$ in $G_k$, then there must be a path from $u$ to $v$ in $T_k$. In another word, $T_k$ preserves the connected components of $G_k$.
+	 
+	 \item $T_k$ constains no cycles, so is can be viewed a collection of tree-type connected components of vertices in $V_k$.
+	 
+	 \item For any two vertices $u_i,u_j \in \mathcal{N}^{-}_{k+1}$, if there is a path $P^{T_k}_{ij}$ from $u_i$ to $u_j$ in $T_k$, then the minimum vertex $w_{ij}$ on this unique path $P^{T_k}_{ij}$ in $T_k$ is the maximum vertex among all the minimum vertices on paths $\{P^q_{ij}\}$ from $u_i$ to $u_j$ in the subgraph $G_k$.	 Namely
+	  \begin{IEEEeqnarray*}{rCl}
+	    w_{ij} &=& \argmin_{v} \{ f(v) \vert v \in P^{T_k}_{ij} \} \\
+	    &=& \argmax_{ w^q_{ij} } \{ f(w^q_{ij}) \vert f(w^q_{ij}) = \min \{ f(v)\}, \forall v \in P^q_{ij} \}
+	  \end{IEEEeqnarray*}
+	\end{itemize}
+
+	Figure \ref{fig:graph_F_6} (c) gives an example of $T_5$ and $F_6$ in the graph $G$.\\
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\noindent \textbf{Proposition 1} 
+	
+	For $0 < k \leq n$, every cycle in $F_k$ is a cycle in $G_k$ born at time $f(k)$.\\
+	
+	\noindent Proof: This is obvious because $F_k$ is a subgraph of $G_k$ and $T_{k-1}$ contains no cycles by construction.\\
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\noindent \textbf{Propersition 2 [a necessary condition]}
+	
+	Suppose that $(f(k), f(w))$ with $w < k$ is a point of type extended in the dimension 1 pdg. For every path from $k$ to $w$ in $G_k$, let the vertex $u_i<k$ be the other endpoint of the edge $\sigma_{u_i k}$ that connects $k$ on the path. Suppose $\mathcal{U}_k = \{u_1,\ldots, u_l\} \subset \mathcal{N}_{k}^{k-}$ be the collection of all these vertices in the lower neighbors of $k$ satisfied that for any $u_i \in \mathcal{U}_k$ there is at least one path from $w$ to $k$ passing $u_i$ in $G_k$. Therefore, 
+	\begin{itemize}
+	 \item there is at least one pair of vertices $(u_i, u_j)$ in $\mathcal{U}_k$ such that $u_i \neq u_j$, the maximum vertex among all minimum vertices $\{ w^q \}$ on different paths $\{ P^q \}$ from $u_i$ to $u_j$ in $G_k$ will be $w$, namely 
+	$$w = \argmax_{w^q} \{ f(w^q) \vert f(w^q) = \min \{ f(v) \}, \forall v \in P^{q}  \}.$$
+	
+	\item if the path from $w$ to $u_r$ and the path from $w$ to $u_s$ do not share any edges, then $w$ is the maximum vertex among all minimum vertices on paths from $u_r$ to $u_s$ in $G_k$.
+	\end{itemize}	
+	
+	\noindent Proof:
+	
+	{... wait to be typed...}\\
+	
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\noindent \textbf{Corollary 1}
+	
+	Suppose $(f(k), f(w))$ is with multiplicity $\mu_{kw}$, then there are at least $\mu_{kw}$ different pairs of $(u_i,u_j)$ in $\mathcal{U}_k$ that make $w$ be the maximum vertex among all minimum vertices on paths from each $u_i$ to $u_j$ in $G_k$.\\
+	
+	\noindent Proof:\\
+	
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\noindent \textbf{Proposition 3}
+	
+	Suppose that $(f(k), f(w))$ is a point of type extended in the dimenion 1 pdg. There is at least one cycle in $F_k$ such that $w$ is the minimum vertex of this cycle.\\
+	
+	\noindent Proof:\\
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\noindent \textbf{Proposition 4}
+	
+	In the graph $G$, for any $k>0$, there are exactly $d_k - c_{k-1}$ number of points of type extended whose abscissa is $f(k)$ in the dimension 1 pdg, where $d_k = \vert \mathcal{N}^-_{k} \vert$ and $c_{k-1}$ is the connected components of subgraph $G_{k-1}$. In another words, there are $d_k - c_{k-1}$ different dimension 1 essential homology classes created at time $f(k)$.
+	
+	Furethermore, there exists a set of $d_k - c_{k-1}$ cycles which form a basis $\mathcal{CB}_k$ such that all the other cycles created at time $f(k)$ in the graph $G$ can be represented as a formal sum of these cycles, and non of the cycle in $\mathcal{CB}_k$ can be expressed as a formal sum of other elements in $\mathcal{CB}_k$.\\
+	
+	\noindent Proof:\\
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\noindent \textbf{Proposition 5}
+	
+	Suppose $k>0$. In the graph $F_k$, there exists at most a set of $d_k - c_{k-1}$ cycles $\mathcal{CB}^{F}_k$ that all the cycles in $F_k$ can be represented as a formal sum of these cycles, and any of these cycles cannot be expressed as a formal sum of others in $\mathcal{CB}^F_k$.\\
+	
+	\noindent Proof:\\
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\noindent \textbf{Corollary 2}
+	
+	We can construct a base $\mathcal{CB}^F_k$ of size $d_k - c_{k-1}$ with the help of the points $\{f(k), f(w_l)\}_{l =1,\ldots,d_k - c_{k-1}}$ of type extended in the dimension 1 pdg.\\
+	
+	\noindent Proof: \\
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\noindent \textbf{Proposition 6}
+	The points of type extended in the dimension 1 pdg of the subgraph $F_k$ represent the persistence of all the dimension 1 homology classes in $G$ which are born at time $f(k)$. \\
+	
+	\noindent Proof:\\
+	
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\noindent \textbf{Construction of $T_k$ and $F_{k+1}$ recursivly}
+	
+	Let $T_0 = \{0\}, F_{0} = \{0\}$. Suppose we have already constructed $T_{k-1}$ and $F_k$ satisfied the required properties. 
+	
+	First of all, we use a union-find algorithm to determine all the cycles that form a basis $\mathcal{CB}^{F}_k$. More precisely, we denote the subgraph of $T_{k-1}$ beyond the level $r$ by $T^r_{k-1} = \{r,\ldots,k-1\} \cup \{ \sigma_{j(k-1)} \in E \vert r \leq j \leq k-1 \}$. We decend from the level $r = k-2$ to $r = 0$ and add progressively edges to the subgraph $V_{k-1}$ to rebuild the subgraph $T_{k-1}$. The order of adding edges follows the rule that $\sigma_{ij}$ is added before $\sigma_{rs}$ if $``j > s" \  or \  ``j=s \  and \  i > r"$.
+	
+	While adding $\sigma_{rs}$, we check whether the addition of such an edge merges two connected components in the subgraph $T^{rs}_{k-1} = T^{r+1}_{k-1} \cup \{r\} \cup \{ \sigma_{rt} \vert s < t\}$. If so, we merge these two components together. 
+	
+	Furthermore, in the situation that both connected components contains at least one element of $\mathcal{N}_k^-$, we find a cycle in the graph $F_k$. Denote the largest vertex of the intersection of  $\mathcal{N}_k^-$ and these two connected components by $u_i$ and $u_j$. We accutally find a path $P_{ij}^{T_{k-1}}$ in $T_{k-1}$ from $u_i$ to $u_j$ passing $r$ and a cycle $cyc^{k-1}_{ij} = [k - u_i -\ldots -r - \ldots - u_j - k]$ in $F_k$. 
+	
+	Because all edges added to the graph up till this moment are beyond the level $r$, we know for certain that $r$ is the minimum vertex of the path $P_{ij}^{T_{k-1}}$ ainsi for the cycle. We give the cycle $cyc_{ij}$ an edge-pairs label $(\sigma_{rs}, \sigma_{u_ik})$ if $u_i<u_j$, otherwise $(\sigma_{rs}, \sigma_{u_jk})$. The level $r$ corresponds to a death time of a dimension 1 homology class in $F_k$ which will be drawn in the pdg at point $(f(k), f(r))$.
+	
+	Once we reach the level $r=0$ or we have already merged all the vertices in $\mathcal{N}_k^-$ into a single connected component, we stop and delete all the first edge $\{ \sigma_{rs} \}$ in the edge-pairs $\{ (\sigma_{rs}, \sigma_{u_ik}) \}$ in $F_{k}$. 
+	And this new subgraph of $F_k$ is the subgraph $T_k$, namely
+	\begin{IEEEeqnarray*}{rCl}
+	  T_k &=& F_k \backslash \{ \sigma_{rs} \in T_{k-1} \vert \sigma_{rs} \text{ merges two cc of } T^{rs}_{k-1} \text{ contains vertices in } \mathcal{N}_k^- \}  \\
+	  &=& F_k \backslash \{\sigma_{rs} \in T_{k-1} \vert f(r) \text{ is the death time of a cycle in } F_k\}\\
+	  &=& G_k \backslash \{\sigma_{rs} \in G_{k-1} \vert f(r) \text{ is the death time of a cycle in } G_{k}\}
+	\end{IEEEeqnarray*}
+	
+	Consequently, $F_{k+1} = T_k \cup \{k+1\} \cup \{ \sigma_{j(k+1)} \in E \vert j < k+1 \}.$\\
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+	\noindent \textbf{Proposition 7}
+	
+	$T_k$ constructed above is tracktable.
+	
+	
+	
+	
+	
+	
+	
+% --------------------------------------------------------------- %
+
+%----------------------------------------------------------------- %
+
+%\newpage
+	%\bibliographystyle{apalike}
+	%\bibliography{../mybib_inria}
+	
+
+\end{document}
