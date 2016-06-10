@@ -118,7 +118,7 @@
 	\noindent
 	\textbf{Introduction}\\
 	
-	We study a non-directed graph $G=(V,E)$ with a vertex set $V$ and an edge set $E$. We employ the numbers $\{0,1,\ldots\}$ to label the vertices in $V$ and if two vertices $i$ and $j$ are joined by an edge in $E$, it will be denoted by $\sigma_{ij}$ with $i<j$. A simple non-directed graph means that there are no self-loops in $G$ and every pair of points has at most one edge connecting them.  A path from $u$ to $v$ in a non-directed graph is an alternative sequence of vertices and edges. It starts  with the vertex $u$, then follows by an edge $\sigma_{ur}$. In the middle of the sequence, any two consequtive edges are sparated by their adjacent vertex, finally, the path ends with the vertex $v$. A simple path means every edge appears at most once. In this note, a path means a simple path. 
+	We study a non-directed graph $G=(V,E)$ with a vertex set $V$ and an edge set $E$. We employ the numbers $\{0,1,\ldots\}$ to label the vertices in $V$ and if two vertices $i$ and $j$ are joined by an edge in $E$, it will be denoted by $\sigma_{ij}$ with $i<j$. A simple non-directed graph means that there are no self-loops in $G$ and every pair of points has at most one edge connecting them.  A path $P_{ij}^G$ from $u_i$ to $u_j$ in a non-directed graph $G$ is an alternative sequence of vertices and edges. It starts  with the vertex $u$, then follows by an edge $\sigma_{ur}$. In the middle of the sequence, any two consequtive edges are sparated by their adjacent vertex, finally, the path ends with the vertex $v$. A simple path means that every edge or vertex of $G$ appears at most once in the path. In this note, a path means a simple path. 
 	
 	Suppose that there is a height value function $f: V \mapsto \mathbb{R}$ such that $f(0) < f(1) < \ldots <f(n)$, where $\vert V \vert = n+1$. 
 	
@@ -217,51 +217,109 @@
 	
 	For example, in Figure \ref{fig:graph_F_6} (b), we try to use a spanning tree formed with negative edges of dimension 0 homology classes in $G_5$ with all the edges of type $\{\sigma_{j6}\}$ (equivalently, removing all positive edges of cycles in $G_5$) to capture the death times of cycles born at $f(6)$. What we find is a large cycle $[6-1-0-2-4]$ whose death time is $f(0)$, as a combination of two cycles $[6-1-5-4]$ and $[5-1-0-2-4]$ in the origin subgraph $G_6$. Indeed, the only dimension 1 homology class, the cycle, born at $f(6)$ in the graph $G_6$ has already been dead when we arrive at the homology groups $\mathbf{H_1}(G_6, G_6^1)$ in the extended filtration of $f$. The erase of edge $\sigma_{15}$ turns out to lose the information that we search for that cycle. On the other hand, in Figure \ref{fig:graph_F_6} (c), we try to use another tree-type subgraph of $G_5$, $T_5$, formed by removing negative edges $\{\sigma_{23}, \sigma_{01} \}$ of cycles in $G_5$, in another words, by removing one edge of type $\sigma_{rs}$ in the connected component that contains edge $\sigma_{i5}$ for each vertex-edge label $(r,\sigma_{i5})$  of cycle in $G_5$. Let $F_6 = T_5 \cup \{6\} \cup \{\sigma_{j6} \}$. We observe that in there is still a cycle $[6-1-5-4]$ in $F_6$ and it dies at time $f(1)$. It seems like a coincidence, but we will prove in the following that the subgraph $F_{k} = T_{k-1} \cup \{k \} \cup \{ \sigma_{jk} \}$ of $G_k$ that captures all the death times of independent cycles born at $f(k)$ in the original graph $G$.\\
 	
-	\noindent \textbf{Properties of $T_k$ and $F_{k+1}$}\\
 	
-	Let $\vert V \vert = n+1$ and we have an compatible order of edges such that $\sigma_{ij}$ lines before $\sigma_{rs}$ if $``j<s" \  or \  ``j=s \ and \ i<r"$.	The lower neighbors of the vertex $k$ is the set of endpoint of edges $\sigma_{jk}$ with $j<k$, denoted by $\mathcal{N}^{-}_{k} = \{j \vert \sigma_{jk} \in E, j<k \}$.
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\noindent \textbf{Definition of $T_k$ and $F_{k}$}\\
 	
-	For $0\leq k \leq n-1$, $T_k$ is a subgraph of $G_k$ with vertics set $V_k = \{0,\ldots, k\}$.  $F_{k+1}$ is a subgraph of $G_{k+1}$ defined as a union of $T_k$, the vertex ${k+1}$, and all the edges in $G_{k+1}$ with an endpoint $k+1$, namely
-	$$ F_{k+1} = T_k \cup \{k+1\} \cup \{ \sigma_{jk} \in E \vert j<k \} \subset G_{k+1}.$$	
+	Let $\vert V \vert = n+1$ and we have an compatible order of edges such that $\sigma_{ij}$ lines before $\sigma_{rs}$ if $``j<s" \  or \  ``j=s \ and \ i<r"$.	The lower neighbors of a vertex $k$ is the set of endpoint of edges $\sigma_{jk}$ with $j<k$, denoted by $\mathcal{N}^{-}_{k} = \{j \vert \sigma_{jk} \in E, j<k \}$. We denote the subgraph of $G_k$ beyond certain level $i<k$ the graph $G_k^i = \{i,\ldots,k\} \cup \{ \sigma_{rs} \in E \vert i \leq r < s \leq k \}$. 
 	
-	We call that $T_k$ is tracktable if it satisfied the following three properites:
+	For $0\leq k \leq n-1$, $T_k$ is a subgraph of $G_k$ with vertics set $V_k = \{0,\ldots, k\}$.	We call that $T_k$ is tractable if it satisfied the following three properites:
 	\begin{itemize}
 	 \item If there is a path from $u$ to $v$ in $G_k$, then there must be a path from $u$ to $v$ in $T_k$. In another word, $T_k$ preserves the connected components of $G_k$.
 	 
 	 \item $T_k$ constains no cycles, so is can be viewed a collection of tree-type connected components of vertices in $V_k$.
 	 
-	 \item For any two vertices $u_i,u_j \in \mathcal{N}^{-}_{k+1}$, if there is a path $P^{T_k}_{ij}$ from $u_i$ to $u_j$ in $T_k$, then the minimum vertex $w_{ij}$ on this unique path $P^{T_k}_{ij}$ in $T_k$ is the maximum vertex among all the minimum vertices on paths $\{P^q_{ij}\}$ from $u_i$ to $u_j$ in the subgraph $G_k$.	 Namely
+	 \item For any two vertices $u_i,u_j \in \mathcal{N}^{-}_{k+1}$, if there is a path $P^{T_k}_{ij}$ from $u_i$ to $u_j$ in $T_k$, then the minimum vertex $w_{ij}$ on this unique path $P^{T_k}_{ij}$ in $T_k$ is the maximum vertex among all the minimum vertices on paths $\{P^{q,G_k}_{ij}\}$ from $u_i$ to $u_j$ in $G_k$.	 Namely
 	  \begin{IEEEeqnarray*}{rCl}
 	    w_{ij} &=& \argmin_{v} \{ f(v) \vert v \in P^{T_k}_{ij} \} \\
-	    &=& \argmax_{ w^q_{ij} } \{ f(w^q_{ij}) \vert f(w^q_{ij}) = \min \{ f(v)\}, \forall v \in P^q_{ij} \}
+	    &=& \argmax_{ w^q_{ij} } \{ f(w^q_{ij}) \vert f(w^q_{ij}) = \min \{ f(v)\}, \forall v \in P^{q, G_k}_{ij} \}
 	  \end{IEEEeqnarray*}
 	\end{itemize}
+	
+	For $k = 1,\ldots, n$, $F_{k}$ is a subgraph of $G_{k}$ defined as a union of $T_{k-1}$, the vertex ${k}$, and all the edges in $G_{k}$ with an endpoint $k$, namely
+	$$ F_{k} = T_{k-1} \cup \{k\} \cup \{ \sigma_{jk} \in E \vert j<k \} \subset G_{k}.$$	
 
 	Figure \ref{fig:graph_F_6} (c) gives an example of $T_5$ and $F_6$ in the graph $G$.\\
 	
+	Our objective is to prove that if a cycle is found in the graph $F_k$, its largest vertex $k$ and its smallest vertex $w$ must correspond to the a point $(f(k), f(w))$ in the dimension 1 pdg of $G$. Before seeing the demonstratio of this property, we present in the first place the recusive construction of graphs $T_k$ and $F_{k}$ and the algorithm based on these subgraphs that finds the points of type extended in the dimension 1 pdg of $G$.\\
+	
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\newpage
+	\noindent \textbf{Algortihm for $T_k$ and $F_k$ and points of type extended in $G$}\\
+	
+	Let $T_0 = F_0 = \{0\}$. For $k=1$, if $\sigma_{01} \in E$ then $T_1 = F_1 = \{0,1\} \cup \{\sigma_{01} \}$, otherwise, $T_1 = F_1 = \{0,1\}$.\\
+	
+	Suppose now that we have already constructed a tractable graph $T_{k-1}$ and $F_k$. We denote the subgraph of $T_{k-1}$ beyond the level $r$ by $T^r_{k-1} = \{r,\ldots,k-1\} \cup \{ \sigma_{j(k-1)} \in E \vert r \leq j \leq k-1 \}$.
+	
+	First of all, we will find a basis $\mathcal{CB}^{F_k}_k$ of cycles in $F_k$. In other words, we find a collection of cycles in $F_k$ such that any other cycle in $F_k$ can be written as a formal sum modulo 2 of cycles in the collection, and none of the cycle in the collection can be expressed as a formal sum of other cycles in this collection. A formal sum of modulo 2 of cycles is a cycle formed by removing all edges that appear in even number of times in the sum, as well as the adjacent vertices between any two of these removed edges. 
+	
+	The method is to use the union-find algorithm to trace down the fusion of certain connected components. Starting from the vertex set $V_{k-1}$, we decend from the level $r = k-1$ to $r = 0$ and add progressively edges to rebuild the graph $T_{k-1}$. The order of adhersion of edges is that $\sigma_{ij}$ is added before $\sigma_{rs}$ if $``j > s" \  or \  ``j=s \  and \  i > r"$.
+	
+	While adding $\sigma_{rs}$, we check whether the addition of such an edge merges two connected components in the subgraph $T^{rs}_{k-1} = T^{r+1}_{k-1} \cup \{r\} \cup \{ \sigma_{rt} \vert s < t\}$. If so, we merge these two components together. 
+	
+	Furthermore, in the situation that both connected components contain at least one element of $\mathcal{N}_k^-$, we find a cycle in the graph $F_k$. Denote the largest vertex of the intersection between $\mathcal{N}_k^-$ and these two connected components by $u_i$ and $u_j$. We acctually find the unique path $P_{ij}^{T_{k-1}}$ in $T_{k-1}$ from $u_i$ to $u_j$ passing $r$ and a cycle $cyc^{k}_{ij} = [k - u_i -\ldots -r - \ldots - u_j - k]$ in $F_k$. 
+	
+	Because all edges added to the graph up till this moment are beyond the level $r$, we know for certain that $r$ is the minimum vertex of the path $P_{ij}^{T_{k-1}}$, as well as for the cycle $cyc_{ij}^k$. We 
+	assign to the cycle $cyc^k_{ij}$ an edge-pair $(\sigma_{rs}, \sigma_{u_ik})$ if $u_i<u_j$, otherwise $(\sigma_{rs}, \sigma_{u_jk})$. The level $r$ corresponds to a death time of a dimension 1 homology class in $G$ born at $f(k)$.\\
+	
+	We stop once we reach the level $r=0$ or we have already merged all the vertices in $\mathcal{N}_k^-$ into a single connected component. The collection of basis cycle is $\mathcal{CB}^{F_k}_k = \{ cyc^k_{ij} \}$. There should be $d_k - c_{k-1}$ cycles in $\mathcal{CB}^{F_k}_k$, where $d_k = \vert \mathcal{N}_k^-$ and $c_{k-1}$ is the number of connected components of the subgraph $G_{k-1}$. The edge-pair of a cycle in $\mathcal{CB}^{F_k}_k$ gives us a point $(f(k), f(w))$ in the dimension 1 pdg of $G$.\\
+	
+	To construct $T_{k}$, we delete the edge $\sigma_{rs}$ of each edge-pair $(\sigma_{rs}, \sigma_{u_ik})$ in the graph $F_k$. The new graph is also tractable, and it is $T_k$.
+	\begin{IEEEeqnarray*}{rCl}
+	  T_k &=& F_k \backslash \{ \sigma_{rs} \in T_{k-1} \vert \sigma_{rs} \text{ merges two cc of } T^{rs}_{k-1} \text{ contains vertices in } \mathcal{N}_k^- \}  \\
+	  &=& F_k \backslash \{\sigma_{rs} \in T_{k-1} \vert f(r) \text{ is the death time of a cycle in } F_k\}\\
+	  &=& G_k \backslash \{\sigma_{rs} \in G_{k-1} \vert f(r) \text{ is the death time of a cycle in } G_{k}\}
+	\end{IEEEeqnarray*}
+	Consequently, $F_{k+1} = T_k \cup \{k+1\} \cup \{ \sigma_{j(k+1)} \in E \vert j < k+1 \}.$\\
+	
+	The tracbleness of $T_k$ assures that we find the death time of all dimension 1 homology classes born at $f(k)$ in the graph $G$. As $k$ goes to $n$, we find all points of type extended in $G$.\\
+	
+	
+	
+	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\noindent \textbf{Correctness of the algorithm}\\
+	
 	\noindent \textbf{Proposition 1} 
 	
-	For $0 < k \leq n$, every cycle in $F_k$ is a cycle in $G_k$ born at time $f(k)$.\\
+	For $0 < k \leq n$, every cycle in $F_k$ is a cycle in $G$, and every dimension homology class of $F_k$ gets born at time $f(k)$.\\
 	
-	\noindent Proof: This is obvious because $F_k$ is a subgraph of $G_k$ and $T_{k-1}$ contains no cycles by construction.\\
+	\noindent Proof: This is obvious because $F_k$ is a subgraph of $G$ and $T_{k-1}$ contains no cycles by definition.\\
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\noindent \textbf{Propersition 2 [a necessary condition]}
 	
-	Suppose that $(f(k), f(w))$ with $w < k$ is a point of type extended in the dimension 1 pdg. For every path from $k$ to $w$ in $G_k$, let the vertex $u_i<k$ be the other endpoint of the edge $\sigma_{u_i k}$ that connects $k$ on the path. Suppose $\mathcal{U}_k = \{u_1,\ldots, u_l\} \subset \mathcal{N}_{k}^{k-}$ be the collection of all these vertices in the lower neighbors of $k$ satisfied that for any $u_i \in \mathcal{U}_k$ there is at least one path from $w$ to $k$ passing $u_i$ in $G_k$. Therefore, 
+	Suppose that $(f(k), f(w))$ with $w < k$ is a point of type extended in the dimension 1 pdg. Let $u_i \in \mathcal{N}_k^-$ be a vertex in the lower neighbors of $k$ such that there exists at least one path from $k$ to $w$ passing $u_i$ in the subgraph $G_k^w$. We collect all the $u_i$ in a set $\mathcal{U}_k = \{ u_1,u_2,\ldots, u_l\}$. Therefore
 	\begin{itemize}
-	 \item there is at least one pair of vertices $(u_i, u_j)$ in $\mathcal{U}_k$ such that $u_i \neq u_j$, the maximum vertex among all minimum vertices $\{ w^q \}$ on different paths $\{ P^q \}$ from $u_i$ to $u_j$ in $G_k$ will be $w$, namely 
-	$$w = \argmax_{w^q} \{ f(w^q) \vert f(w^q) = \min \{ f(v) \}, \forall v \in P^{q}  \}.$$
+	 \item there is at least one pair of vertices $(u_i, u_j)$ in $\mathcal{U}_k$ such that $u_i \neq u_j$, the maximum vertex among all minimum vertices on different paths $\{ P^{q,G_k} \}_q$ from $u_i$ to $u_j$ in $G_k$ will be $w$, namely 
+	$$w = \max \{ w^{q,G_k} \vert f(w^{q,G_k}) = \min \{ f(v) \}, \forall v \in P^{q,G_k}  \}.$$
 	
 	\item if the path from $w$ to $u_r$ and the path from $w$ to $u_s$ do not share any edges, then $w$ is the maximum vertex among all minimum vertices on paths from $u_r$ to $u_s$ in $G_k$.
 	\end{itemize}	
 	
-	\noindent Proof:
+	\noindent Proof: 
 	
-	{... wait to be typed...}\\
+	For any $u_r \in \mathcal{U}_k$, all vertices on the path from $u_r$ to $w$ are larger than $w$ because the path belongs to $G_k^r$. Besides, for any two vertices $u_r, u_s \in \mathcal{N}_k^-$, we know that $u_r$ and $u_s$ are connected in $G_k^w$ as they all connected to $w$ in $G_k^w$ with paths $P_{rw}^{G_k^w}$ and $P_{sw}^{G_k^w}$. Thus, there exists a path $P_{ij}^{G_k^w}$ from $u_i$ to $u_j$ in $G_k^w$ whose minimum vertice is larger than $w$,
+	$$ w_{ij}^{G_k^w} = \argmin_{v} \{ f(v) \vert v \in P_{ij}^{G_k^w} \} \geq w.$$	
+	Since $P_{ij}^{G_k^w} \in \{ P_{ij}^{q,G_k} \}$ belongs to paths set in $G_k$ from $u_i$ to $u_j$, we have natually 
+	$$ w_{ij} = \max \{ w_{ij}^{q,G_k} \vert f(w_{ij}^{q,G_k}) = \min \{ f(v) \}, \forall v \in P^{q,G_k}_{ij}  \} \geq w_{ij}^{G_k^w} \geq w. $$
+	
+	Suppose by contradiction that there is no pair of vertices $(u_i, u_j) \in \mathcal{U}^2_k$ such that $u_i \neq u_j$ and $w$ is the maximum vertex among all minimum vertices on different paths $\{ P^{q,G_k} \}_q$ from $u_i$ to $u_j$ in $G_k$. Let $v_r,v_s$ be two vertices in $\mathcal{N}_k^-$, we distinguish diffferent cases below:
+	\begin{itemize}
+	 \item if $v_r$ and $v_s$ belongs to two different connect components of $G_{k-1}$, then there is no path from $v_r$ to $v_s$ in $G_{k}$ except for the one $ [v_r - \sigma_{rk} - k - \sigma_{sk} -v_s]$. So there is no cycles in $G_k$ contains both $v_r$ and $v_s$. 
+	 \item if $v_r$ and $v_s$ belongs to the same connected component $C$ of $G_{k-1}$ that doest not contains $w$, then every cycle that connects $k$ and elements in $C$ does not contains the vertex $w$. Thus, any dimension 1 homology class gets born with edges $\{ \sigma_{vk}\vert v \in C \cap \mathcal{N}_k^- \}$ and $C$ will never die at time $f(w)$.
+	 \item if $v_r$ and $v_s$ belongs to the same connected component $C$ of $G_{k-1}$ taht contains the vertex $w$, then there is at least a path $P^{G_k}_{rw}$ from $v_r$ to $w$, respectively $P_{sw}^{G_k}$ from $v_s$ to $w$. we distinguish cases for whether $v_r$ and $v_s$ belong to $\mathcal{U}_k$.
+	    \begin{itemize}
+	      \item If neither $v_r$ nor $v_s$ belongs to $\mathcal{U}_k$, then every path from $v_r$ to $w$ (resp $v_s$ to $w$ must contain at least one vertex $t_r < w$ (resp $t_s <w$), otherwise there exists a path from $v_r$ to $w$ (resp $v_s$ to $w$) in $G_k^w$.
+	      We study a cycle contain $v_r$ and $v_s$ in $G_k$ and its associated dimension 1 homology classes 
+	    \end{itemize}
+	\end{itemize}
+
 	
 	
+	
+	Let $\mathcal{V}_k = \mathcal{N}_k^- \backslash \mathcal{U}_k$ be the set of other vertices in the lower neighbors of $k$ such that no path from $w$ to $v \in \mathcal{V}_k$ in $G_k$ also belongs to $G_k^w$.
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\noindent \textbf{Corollary 1}
 	
@@ -302,40 +360,17 @@
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\noindent \textbf{Proposition 6}
+	
 	The points of type extended in the dimension 1 pdg of the subgraph $F_k$ represent the persistence of all the dimension 1 homology classes in $G$ which are born at time $f(k)$. \\
 	
 	\noindent Proof:\\
 	
 	
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\noindent \textbf{Construction of $T_k$ and $F_{k+1}$ recursivly}
-	
-	Let $T_0 = \{0\}, F_{0} = \{0\}$. Suppose we have already constructed $T_{k-1}$ and $F_k$ satisfied the required properties. 
-	
-	First of all, we use a union-find algorithm to determine all the cycles that form a basis $\mathcal{CB}^{F}_k$. More precisely, we denote the subgraph of $T_{k-1}$ beyond the level $r$ by $T^r_{k-1} = \{r,\ldots,k-1\} \cup \{ \sigma_{j(k-1)} \in E \vert r \leq j \leq k-1 \}$. We decend from the level $r = k-2$ to $r = 0$ and add progressively edges to the subgraph $V_{k-1}$ to rebuild the subgraph $T_{k-1}$. The order of adding edges follows the rule that $\sigma_{ij}$ is added before $\sigma_{rs}$ if $``j > s" \  or \  ``j=s \  and \  i > r"$.
-	
-	While adding $\sigma_{rs}$, we check whether the addition of such an edge merges two connected components in the subgraph $T^{rs}_{k-1} = T^{r+1}_{k-1} \cup \{r\} \cup \{ \sigma_{rt} \vert s < t\}$. If so, we merge these two components together. 
-	
-	Furthermore, in the situation that both connected components contains at least one element of $\mathcal{N}_k^-$, we find a cycle in the graph $F_k$. Denote the largest vertex of the intersection of  $\mathcal{N}_k^-$ and these two connected components by $u_i$ and $u_j$. We accutally find a path $P_{ij}^{T_{k-1}}$ in $T_{k-1}$ from $u_i$ to $u_j$ passing $r$ and a cycle $cyc^{k-1}_{ij} = [k - u_i -\ldots -r - \ldots - u_j - k]$ in $F_k$. 
-	
-	Because all edges added to the graph up till this moment are beyond the level $r$, we know for certain that $r$ is the minimum vertex of the path $P_{ij}^{T_{k-1}}$ ainsi for the cycle. We give the cycle $cyc_{ij}$ an edge-pairs label $(\sigma_{rs}, \sigma_{u_ik})$ if $u_i<u_j$, otherwise $(\sigma_{rs}, \sigma_{u_jk})$. The level $r$ corresponds to a death time of a dimension 1 homology class in $F_k$ which will be drawn in the pdg at point $(f(k), f(r))$.
-	
-	Once we reach the level $r=0$ or we have already merged all the vertices in $\mathcal{N}_k^-$ into a single connected component, we stop and delete all the first edge $\{ \sigma_{rs} \}$ in the edge-pairs $\{ (\sigma_{rs}, \sigma_{u_ik}) \}$ in $F_{k}$. 
-	And this new subgraph of $F_k$ is the subgraph $T_k$, namely
-	\begin{IEEEeqnarray*}{rCl}
-	  T_k &=& F_k \backslash \{ \sigma_{rs} \in T_{k-1} \vert \sigma_{rs} \text{ merges two cc of } T^{rs}_{k-1} \text{ contains vertices in } \mathcal{N}_k^- \}  \\
-	  &=& F_k \backslash \{\sigma_{rs} \in T_{k-1} \vert f(r) \text{ is the death time of a cycle in } F_k\}\\
-	  &=& G_k \backslash \{\sigma_{rs} \in G_{k-1} \vert f(r) \text{ is the death time of a cycle in } G_{k}\}
-	\end{IEEEeqnarray*}
-	
-	Consequently, $F_{k+1} = T_k \cup \{k+1\} \cup \{ \sigma_{j(k+1)} \in E \vert j < k+1 \}.$\\
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 	\noindent \textbf{Proposition 7}
 	
 	$T_k$ constructed above is tracktable.
-	
-	
 	
 	
 	
