@@ -283,24 +283,93 @@
 	
 	We consider a simple non-directed graph $G$ and the simple paths in $G$ as well as in its subgraphs $G_k$. A cycle in a simple non-directed graph contains at least 3 vertices.
 	
-	Every cycle in $G$ is a dimension 1 homology class in the homology group $\mathbf{H}_1(G)$. To draw the points with abscissa $f(k)$ of type extended in the pdg, we choose independent dimension 1 homology classes born at time $f(k)$.	
-	
-	Denote the number of vertices in $\mathcal{N}_k^-$ by $d_k$, the number of connected component in $G_{k-1}$ by $c_{k-1}$. 
-	We know that if there are $d_k^i$ vertices of $\mathcal{N}_k^-$ in a single connected component $C^i_{k-1}$ of the graph $G_{k-1}$, then there are $d_k^i -1$ independent dimension 1 homology classes created at time $f(k)$ with $d_k^i$ edges $\{\sigma_{j_q k} \vert u_{j_q} \in \mathcal{N}_k^- \cap C^i_{k-1}, q = 1,\ldots, d_k^i \}$ and the elements in $C_{k-1}^i$. 
-	
-	We know that any two dimension 1 homology classes created with different connected components $C^i_{k-1}$ and $C^j_{k-1}$ of $G_{k-1}$ are independent.
-	Since $\sum_{i=1}^{c_{k-1}} d_{k}^i = d_k$, we then have in total $d_k - c_{k-1}$ independent dimension 1 homology classes created at time $f(k)$.\\
+	Every cycle in $G$ is a dimension 1 homology class in the homology group $\mathbf{H}_1(G)$. To draw the points with abscissa $f(k)$ of type extended in the pdg, we choose independent dimension 1 homology classes born at time $f(k)$.\\
 	
 	
-	\noindent \textbf{Proposition 1} 
+	% % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+	\noindent \textbf{Definition 1}
 	
-	For $0 < k \leq n$, every cycle in $F_k$ is a cycle in $G$, and every dimension homology class of $F_k$ gets born at time $f(k)$.\\
+	A modulo 2 formal sum of a set of cycles in $G$ are a subgraph in $G$ that contains all the edges as its two endpoints that appear with an odd number of times in these cycles.	\\
 	
-	\noindent Proof: This is obvious because $F_k$ is a subgraph of $G$ and $T_{k-1}$ contains no cycles by definition.\\
+	% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+	\noindent \textbf{Definition 2}
+	
+	$n$ cycles contains the vertex $k$ in $G_k$ are said to be independent if the modulo 2 formal sum of any subset of these cycles cannot be expressed as a modulo 2 formal sum of cycles in $G_{k-1}$.\\
+	
+	% % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+	\noindent \textbf{Proposition 1}
+	
+	A graph with $n$ vertex and $n$ edges must contain a cycle.\\
+	
+	\noindent Proof: 
+	
+	If these $n$ edges form a path in the graph, then there are at least $n+1$ different vertices on the path. However, the graph contains only $n$ vertices, contradiction.\\
+	
+	% % % % % % % % % % % % % % % % % % % %
+	\noindent \textbf{Corollary 1.1}
+	
+	For any given $n$ pairs of numbers $(i,j)$ for $i,j \in \{1,\ldots, n\}$, there must be $k<n$ pairs which for a circle of pairs. In another words, there are $k$ pairs of numbers form a circle like $(a,b),(b,c),\ldots,(j,k),(k,a)$.\\
+	
+	\noindent Proof: 
+	
+	We build a graph $G$ with $n$ vertices denoted as $u_1,\ldots u_n$. An edge $\sigma_{ij}$ is in the graph if $(i,j)$ is a pair of numbers. Then there are $n$ edges in the graph $G$. By Proposition 0, there is a cycle in $G$. the pairs of number correspond to edges on this cycle form a circle of pairs like $(a,b),(b,c),\ldots,(k,a)$.\\
+	
+	
+	% % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+	\noindent \textbf{Propostion 2}
+	
+	A cycle contains the vertex $k$ must contains exactly two vertices $u_i$ and $u_j$ in the lower neighbors of $k$ $\mathcal{N}_k^-$.\\
+	
+	\noindent Proof:
+	
+	Because a cycle in a non-directed simple graph contains at least 3 vertices, there exist two different vertices $v_i$ and $v_j$ on the cycle other than $k$. Following the cycle, we find a single simple path from $v_i$ to $v_j$ passing $k$. Thus, there are two edges of type $\{\sigma_{ik}, \sigma_{jk}\}$ with the vertex $\{u_i, u_j\}$ which form a sub-path
+	$[u_i - \sigma_{ik}- k - \sigma_{jk} - u_j]$ in the cycle. We then conclude that $u_i, u_j \in \mathcal{N}_k^-$. The uniqueness derives from the definition of simple path in a non-directed graph.\\ 
+	
+	
+	% % % % % % % % % % % % % % % % % % % % % % % % % %
+	\noindent \textbf{Corollary 2.1}
+	
+	In the graph $G_k$ of $G$, let $C_{k-1}$ be a connected component of $G_{k-1}$. Suppose that there are $r$ vertices in the intersection of $\mathcal{N}_k^- \cap C_{k-1}$, denoted by $\{v_1,\ldots, v_r\}$.  Then there exist, and at most, $r-1$ cycles in $C_{k-1} \cup \{k\} \cup \{ \sigma_{v_1k},\ldots, \sigma_{v_rk}\}$ contained the vertex $k$ which are independent in $G_k$.\\
+	
+	\noindent Proof:
+	
+	By proposition 2, a cycle in $C_{k-1} \cup \{k\} \cup \{ \sigma_{v_1k},\ldots, \sigma_{v_rk}\}$ contained the vertex $\{k\}$ must contains exactly two vertices $v_i, v_j \in \{v_1,\ldots,v_r\}$. 
+	
+	Let $\{cyc_k^{q}\}_{q=1,\ldots,r}$ be $r$ cycles in  $C_{k-1} \cup \{k\} \cup \{ \sigma_{v_1k},\ldots, \sigma_{v_rk}\}$. Then, each cycle $cyc_k^q, \forall q = 1,\dots,r$ has a pair of vertices $(v_{i_q}, v_{j_q})$.
+	
+	By Corollary 1.1, since there are only $r$ vertices in $\mathcal{N}_k^- \cap C_{k-1}$, there thus exists a circle of vertex-pair of length $s \leq r$ in $\{(v_{i_q}, v_{j_q})\}_{q=1,\ldots,r}$. Denote this circle by $(u_1,u_2), (u_2,u_3),\ldots,(u_s,u_1)$.
+	
+	Then the modulo 2 formal sum of these $s$ cycles is a subgraph $H$ in $G_{k-1}$. Furthermore, let the path from $u_{l}$ to $u_{l+1}$ on the related cycle in $G_{k-1}$ be $P_{l,l+1}^{G_{k-1}}$ ($u_{s+1} = u_1$). Because all edges $\{\sigma_{u_l k} \}_{l=1,\ldots,s}$ appear exactly two times in the modulo 2 formal sum of these cycles, the subgraph $H$ equals to the modulo 2 formal sum of $s$ paths $\{P_{l,l+1}^{G_{k-1}} \}_{l=1,\ldots,s}$. They form a circle of paths head and tail docking. Thus, the subgraph $H = \sum_{l=1}^s P_{l,l+1}^{G_{k-1}} (mod 2)$ will be a collection of cycles in $G_{k-1}$. 
+	
+	Therefore, by definition, these $r$ cycles containing the vertex $k$ are not independent in $G_k$, nor do they be independent in a subgraph $C_{k-1} \cup \{k\} \cup \{ \sigma_{v_1k},\ldots, \sigma_{v_rk}\} \subset G_k$. In another word, there are at most $r-1$ cycles contained $k$ in $C_{k-1} \cup \{k\} \cup \{ \sigma_{v_1k},\ldots, \sigma_{v_rk}\}$ that are independent in $G_k$.\\
+	
+	On the other hand, let $P_{1q}^{G_{k-1}}$ be a path in $C_{k-1}$ from $v_1$ to $v_q$ for $q=2,\ldots,r$. We build $r-1$ cycles 
+	$$cyc_{k}^{1q}= P_{1q}^{G_{k-1}} \cup \{k\} \cup \{\sigma_{1k}, \sigma_{v_qk} \} \subset \left( C_{k-1} \cup \{k\} \cup \{ \sigma_{v_1k},\ldots, \sigma_{v_rk}\} \right), \quad \forall q = 2,\ldots,r.$$
+	We observe that the cycle $cyc_k^{1q}$ contains an edge $\sigma_{v_qk}$ which does not belong to any other $r-2$ cycles $cyc_{k}^{G_{k-1}}$. Hence, the modulo 2 formal sum contains cycle $cycl_k^{1q}$ will never be a subgraph in $G_{k-1}$. By definition, these $r-1$ cycles contained the vertex $k$ are independent in $G_k$. \\
+	
+	
+	% % % % % % % % % % % % % % % % % % % % % % % %
+	\noindent \textbf{Corollary 2.2}
+	
+	In the graph $G_k$, denote the number of vertices in $\mathcal{N}_k^-$ by $d_k$, the number of connected component in $G_{k-1}$ by $c_{k-1}$. Then there are exactly $d_k - c_{k-1}$ independent cycles in $G_k$ contained the vertex $k$ which are independent in $G_k$. In another words, there are $d_k - c_{k-1}$ dimension 1 homology classes born at time $f(k)$ in $G_k$.\\
+	
+	\noindent Proof:
+	
+	Let $d_k^i$ be the number of vertices in $\mathcal{N}_k^-$ and in a connected component $C^i_{k-1}$ of the graph $G_{k-1}$.
+	
+	By applying the corollary 2.1 to each connected component of $C_{k-1}^i \subset G_{k-1}$ for $i = 1,\ldots,c_{k-1}$, we have $d_k^i -1$ cycles created with vertices of $C_{k-1}^i$ that are independent in $G_k$. Besides, a cycle created with vertices in $C_{k-1}^i$ contains an edge $\sigma_{vk}$ that does not belong to any other cycles created with another connected component $C_{k-1}^j \subset G_{k-1}$ with $j\neq i$. 
+	
+	Therefore, the total $\sum_{i=1}^{c_{k-1}} d^i_k -1 = d_k - c_{k-1}$ cycles in $G_k$ contained the vertex $k$ are independent in $G_k$. \\
+	
+	Since any cycle in $G_k$ contained the vertex $k$ must have two lower neighbor of $k$, $(v_r,v_s) \in (\mathcal{N}_k^-)^2$ belong to the same connected component $C_{k-1}^i$, it be then be expressed as modulo 2 formal sum of the $d^i_k -1$ cycles with $C_{k-1}$ independent in $G_k$ and some cycles in $G_{k-1}$. 
+	
+	Thus, there are at most $d_k - c_{k-1}$ cycles in $G_k$ contained the vertex $k$ which are independent in $G_k$.\\
+	
+
 	
 	
 	% % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-	\noindent \textbf{Proposition 2} [a sufficient condition]
+	\noindent \textbf{Proposition 3} [a sufficient condition]
 	
 	Let $\mathcal{N}^+_0$ be the neighbors of vertex $0$, $\mathcal{N}^+_0 = \{j >0 \vert \sigma_{0j} \in E\}$. Suppose That $(u_i, u_j) \in (\mathcal{N}_0)^2$, and $r$ is the minimum vertex among all maximum vertices on different paths from $u_i$ to $u_j$ in $G$ without passing $0$. We show that there is no path from $u_i$ to $u_j$ in $G_t$ for $0< t< r$ which does not pass $0$. Furthermore, there is a dimension 1 homology class contained $u_i, u_j$ and the vertex $0$ in $G_r$ gets born at time $f(r)$.\\
 	
@@ -313,7 +382,7 @@
 	Therefore, the conclusion holds.\\
 	
 	% % % % % % % % % % % % % % % % % % % % % % % % % % %
-	\noindent \textbf{Corollary 2.1}
+	\noindent \textbf{Corollary 3.1}
 
 	Let $\mathcal{N}_k^-$ be the lower neighbors of the vertex $k$, $\{j<k \vert \sigma_{jk} \in E \}$. Suppose $(u_i,u_j) \in (\mathcal{N}_k^-)^2$, and $w$ is the maximum vertex among all minimum vertices on different paths from $u_i$ to $u_j$ in $G_k$. Then there is no path from $u_i$ to $u_j$ in $G^t_k$ for $k>t>w$. Furthermore, there is a dimension 1 homology class in $G^w_k$ contains $u_i, u_j$ and $k$ in $G^w_k$ that gets born at time $f(w)$, or equivalently, a dimension 1 homology class born at time $f(k)$ in $G_k$ dies at time $f(w)$ in $(G_k,G^w_k)$.\\
 	
@@ -322,23 +391,15 @@
 	We replace $i$ by $k-i$ for all $i=0,\ldots,k$, the graph $G_k$ by $G$, the subgraph $G^t_k$ by $G_t$, $G^w_k$ by $G_r$, and $w$ by $r$. By applying the proposition 3, the conclusion holds.\\
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\noindent \textbf{Corollary 2.2}
+	\noindent \textbf{Corollary 3.2}
 	
 	Suppose $(f(k),f(w))$ is a point of type extended in the dimension 1 pdg with the highest y-coordinate among all points with $f(k)$ as abscissa. Then there is no path between any pair of vertices $(v_r,v_s) \in (\mathcal{N}^-_k)^2$ in the graph $G_{k-1}^{w+1}$.\\
 	
 	\noindent Proof:
 	
-	If there is a path connects a pair of vertices $(v_r,v_s) \in (\mathcal{N}^-_k)^2$ in the graph $G_{k-1}^{w+1}$. Let $w_{rs}$ be the maximum vertex among all minimum vertices on path from $v_r$ to $v_s$ in $G_{k-1}$. We then have, $w_{rs} \geq w+1$. On the other hand, by the Corollary 2.1, $f(w_{rs})$ is the death time of a dimension 1 homology class born at $f(k)$ in $G_k$. This means that $(f(k),f(w_{rs}))$ is a point of type extended in the dimension 1 pdg with a y-coordinate larger than $f(w)$, contradiction.\\
+	If there is a path connects a pair of vertices $(v_r,v_s) \in (\mathcal{N}^-_k)^2$ in the graph $G_{k-1}^{w+1}$. Let $w_{rs}$ be the maximum vertex among all minimum vertices on path from $v_r$ to $v_s$ in $G_{k-1}$. We then have, $w_{rs} \geq w+1$. On the other hand, by the Corollary 3.1, $f(w_{rs})$ is the death time of a dimension 1 homology class born at $f(k)$ in $G_k$. This means that $(f(k),f(w_{rs}))$ is a point of type extended in the dimension 1 pdg with a y-coordinate larger than $f(w)$, contradiction.\\
 		
-	% % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-	\noindent \textbf{Propostion 3}
 	
-	Every dimension 1 homology class gets born at time $f(k)$ must contains exactly two vertices $u_i$ and $u_j$ in the lower neighbors of $k$ $\mathcal{N}_k^-$.\\
-	
-	\noindent Proof:
-	
-	A dimension 1 homology class born at time $f(k)$ is a cycle contains the vertex $k$. Because a cycle in a non-directed simple graph contains at least 3 vertices, there exist two different vertices $v_i$ and $v_j$ on the cycle other than $k$. Following the cycle, we find a single simple path from $v_i$ to $v_j$ passing $k$. Thus, there are two edges of type $\{\sigma_{ik}, \sigma_{jk}\}$ with the vertex $\{u_i, u_j\}$ which form a sub-path
-	$[u_i - \sigma_{ik}- k - \sigma_{jk} - u_j]$ in the cycle. We then conclude that $u_i, u_j \in \mathcal{N}_k^-$. The uniqueness derives from the definition of simple path in a non-directed graph.\\ 
 		
 	% % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 	\noindent \textbf{Proposition 4}
@@ -360,7 +421,7 @@
 
 	\noindent \textbf{Corollary 4.1} 
 	
-	By proposition 3, the cycle created above contains exactly two lower neighbors of $k$, $(u_i,u_j) \in (\mathcal{N}_k^-)^2$. 
+	By proposition 2, the cycle created above contains exactly two lower neighbors of $k$, $(u_i,u_j) \in (\mathcal{N}_k^-)^2$. 
 	If the point $(f(k),f(w))$ is with multiplicity $\mu_{kw} = 1$, then $w$ is the maximum vertex among all minimum vertices on paths from $u_i$ to $u_j$ in $G_{k-1}$.\\ 
 	
 	\noindent Proof:
@@ -392,7 +453,7 @@
 
 	Firstly, every dimension 1 homology class in $G_k$ born at time $f(k)$ will eventually dies at some time $f(t)$ with $t<k$. It corresponds to a point of type extended in dimension 1 pdg $(f(k),f(t))$. Thus, with the proposition 4, it creates a cycle $cyc_{t}$ in $G_k$ containing $t$ and $k$. 
 	
-	Secondly, after the proposition 3, any dimension 1 homology class in $G_k$ born at time $f(k)$ must contain exactly two different vertices in $\mathcal{N}_k^-$, denoted by $(v_r,v_s) \in (\mathcal{N}_k^-)^2$.
+	Secondly, after the proposition 2, any dimension 1 homology class in $G_k$ born at time $f(k)$ must contain exactly two different vertices in $\mathcal{N}_k^-$, denoted by $(v_r,v_s) \in (\mathcal{N}_k^-)^2$.
 	
 	Apart from the path $[v_r - \sigma_{rk} - k - \sigma_{sk} - v_s]$ in the cycle, there is another path from $v_r$ to $v_s$ in $G_{k-1}$. Thus, these two vertices belong to the same connected component $C$ of the subgraph $G_{k-1}$. 
 	Moreover, the smallest vertex on this second path from $v_r$ to $v_s$ is $t$.\\
@@ -438,7 +499,7 @@
 	When $f(w)$ is the largest y-coordinate among all points of type extended with $f(k)$ abscissa in the dimension 1 pdg of $G$. In this case, $\forall (u_i,u_j) \in (\mathcal{U}_k)^2$, $w$ is the maximum vertex among all minimum vertices on paths from $u_i$ to $u_j$ in $G_{k-1}$.\\
 	
 	\noindent Proof:
-	By Corollary 2.2, there is no path for any pair of vertices $(v_r,v_s) \in (\mathcal{N}_k^-)^2$ in the graph $G^{w+1}_{k-1}$. 
+	By Corollary 3.2, there is no path for any pair of vertices $(v_r,v_s) \in (\mathcal{N}_k^-)^2$ in the graph $G^{w+1}_{k-1}$. 
 	For a pair of vertices $(u_i,u_j) \in (\mathcal{U}_k)^2 \subset (\mathcal{N}_k^-)^2$, let $w_{ij}$ be the maximum vertex among all minimum vertices on paths from $u_i$ to $u_j$ in $G_k$. We have $w_{ij} < w+1$. On the other hand, $u_i$ and $u_j$ are connected by $w$ in $G^w_{k-1}$, we then have $w_{ij} > w$. Therefore, $w_{ij} = w$.\\
 	
 	% % % % % % % % % % % % % % % % % % % % % % % %
@@ -504,7 +565,29 @@
 	By induction, there are at least $\mu$ pairs of vertices $(u_r, u_s) \in \mathcal{U}^{\tilde{G}_k}_k$ such that $w$ is the minimum vertex of the highest path from $u_r$ to $u_s$ in $G_{k-1}$. The pair $(u_i,u_j)$ is different with any of the above $\mu$ pairs $(u_r,u_s)$ because $u_i \notin \mathcal{U}^{\tilde{G}_k}_k = \mathcal{U}_k \backslash \{u_i\}$. Thus, the conclusion holds.\\
 
 
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+	
+	\noindent \textbf{Corollary 5.5}
+	
+	Denote the $\mu_{kw}$ pairs of vertices in $\mathcal{U}_k$ found in the corollary 5.4 by $(u_{i_q}, u_{j_q})$ for $q = 1,\ldots, \mu_{kw}$. Then, every pair $(u_r, u_s) \in \{(u_{i_q}, u_{j_q})\}_{q = 1,\ldots, \mu_{kw}}$ has a vertex, either $u_r$ or $u_s$, that is different to all other $2.(\mu_{kw}-1)$ vertices in the remaining $(\mu_{kw}-1)$ vertex-pairs.
+	
+	Furthermore, for a vertex-pair $(u_{i_q},u_{j_q})$, Let $P_{i_q j_q}^{*,G_{k-1}}$ be a highest path from $u_{i_q}$ and $u_{j_q}$ in $G_{k-1}$ whose minimum vertex is $w$. Let $cyc_{i_q j_q}^{G^w_k}$ be a cycle contained both $u_{i_q}, u_{j_q}$ in $G_k^w$ whose minimum and maximum vertices are $k$ and $w$, for example
+	$$cyc_{i_q j_q}^{G^w_k} = P_{i_q j_q}^{*,G_{k-1}} \cup \{k \} \cup \{\sigma_{i_q k}, \sigma_{j_q k} \}.$$ 
+	In this way, these $\mu_{kw}$ cycles $\{cyc_{i_q j_q}^{G^w_k}\}_{q=1,\ldots \mu_{kw}}$ in $G_k^w$ contained the vertex $k$ are independent in $G_k$.\\
+	
+	
+	
+	
+	
+	% % % % % % % % % % % % % % % % % % % % % % % % %
+	\noindent \textbf{Proposition } 
+	
+	For $0 < k \leq n$, every cycle in $F_k$ is a cycle in $G$, and every dimension homology class of $F_k$ gets born at time $f(k)$.\\
+	
+	\noindent Proof: This is obvious because $F_k$ is a subgraph of $G$ and $T_{k-1}$ contains no cycles by definition.\\
+	
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\noindent \textbf{Proposition 6}
 	
 	Suppose that $(f(k), f(w))$ is a point of type extended in the dimension 1 pdg. There is at least one cycle in $F_k$ such that $w$ is the minimum vertex of this cycle.\\
